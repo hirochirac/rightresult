@@ -6,15 +6,40 @@ object CompteBon extends App {
   private var i:Int=1
   
   override def main(arg:Array[String]):Unit={
-    combinatoire(List(100,5,9,50,4,10)).foreach(println)
+    val n=randTotal(100,999)
+    println(s"Tirage du nombre $n")
+    
+    val p=choixDePlak.toList
+    println(s"Tirage des plaques numérotées...."+p)
+    
+    println(s"Résolution....")
+    val l=combinatoire(choixDePlak.toList)
+    l.map(x=>compte(x.tail,x.head))
+    
   }
   
   /**
    * 
    */
-  def randTotal:Int={
+  def choixDePlak:Array[Int]={
+    val p=Plak.pl
+    val z=p.size-1
+    var l=Array[Int](Plak.toNumber(p(randTotal(0,z))),
+                     Plak.toNumber(p(randTotal(0,z))),
+                     Plak.toNumber(p(randTotal(0,z))),
+                     Plak.toNumber(p(randTotal(0,z))),
+                     Plak.toNumber(p(randTotal(0,z))),
+                     Plak.toNumber(p(randTotal(0,z))))
+    l
+  }
+  
+  /**
+   * 
+   */
+  def randTotal(u:Int,v:Int):Int={
     var r:Int = -1
-    while (r<=100 && r>=999){
+    Array
+    while (r<=u || r>=v){
       r=Random.nextInt()
     }
     r
