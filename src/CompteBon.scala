@@ -8,13 +8,12 @@ object CompteBon extends App {
   override def main(arg:Array[String]):Unit={
     val n=randTotal(100,999)
     println(s"Tirage du nombre $n")
-    
     val p=choixDePlak.toList
     println(s"Tirage des plaques numérotées...."+p)
     
     println(s"Résolution....")
     val l=combinatoire(choixDePlak.toList)
-    l.map(x=>compte(x.tail,x.head))
+    l.map(x=>compte(x.tail,x.head,n))
     
   }
   
@@ -48,25 +47,26 @@ object CompteBon extends App {
   /**
    * 
    */
-  private def compte(l:List[Int],acu:Int):Unit= l match {
+  private def compte(l:List[Int],acu:Int,n:Int):Unit= l match {
     case Nil    => ()
     case (h::t) => {
+      if (acu==n) println(s"$acu == $n Gagné!")
       i+=1
       println(s"$i ... $h + $acu = ${h+acu}") 
-      compte(t,acu+h)
+      compte(t,acu+h,n)
       i+=1
       println(s"$i ... $acu - $h = ${Math.abs(acu-h)}")
-      compte(t,Math.abs(acu-h))
+      compte(t,Math.abs(acu-h),n)
       i+=1
       println(s"$i ... $acu * $h = ${acu*h}")
-      compte(t,acu*h)
+      compte(t,acu*h,n)
       if (h>0 && acu>0) {
-        i+=1
-        println(s"$i ... $acu / $h = ${acu/h}")
-        compte(t,h/acu)
-        i+=1
-        println(s"$i ... $h / $acu = ${h/acu}")
-        compte(t,h/acu)
+          i+=1
+          println(s"$i ... $acu / $h = ${acu/h}")
+          compte(t,h/acu,n)
+          i+=1
+          println(s"$i ... $h / $acu = ${h/acu}")
+          compte(t,h/acu,n)
       }
     }
   }
